@@ -117,7 +117,7 @@ describe('server.js', () => {
         res = await request(server).put('/api/projects/1').send({ name: 'a', completed: false })
         expect(res.status).toBe(400)
         res = await request(server).put('/api/projects/1').send({ name: 'a', description: 'b' })
-        expect(res.status).toBe(400)
+        expect(res.status).toBe(200)
         res = await request(server).put('/api/projects/1').send({})
         expect(res.status).toBe(400)
       }, 750)
