@@ -58,13 +58,12 @@ router.put('/:id', async (req, res) => {
         const id = req.params.id;
         const changes = req.body;
 
-        console.log('Changes: ', req.body)
 
-        if (!changes.name || !changes.description) {
+        if (!changes.name || !changes.description || changes.completed === undefined ) {
              res.status(400).send({ message: 'Please provide name, description' }); 
              return
         }
-
+        
         const updatedProject = await update(id, changes);
 
         if (!updatedProject) {
