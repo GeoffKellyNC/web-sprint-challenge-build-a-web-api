@@ -10,6 +10,20 @@ const projectsRoutes = require('../api/projects/projects-router');
 
 server.use(express.json());
 
+server.use((req, res, next) => {
+    console.log(`${req.method} to ${req.url} at ${new Date().toISOString()}`);
+    next();
+});   
+
+server.use((err, req, res, next) => {
+    console.log(`Error: ${err}`);
+    res.status(500).json({
+        message: 'Something went wrong'
+    });
+    next();
+});
+
+
 server.use('/api/projects', projectsRoutes);
 server.use('/api/actions', actionsRoutes);
 

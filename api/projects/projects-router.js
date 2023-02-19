@@ -58,8 +58,11 @@ router.put('/:id', async (req, res) => {
         const id = req.params.id;
         const changes = req.body;
 
+        console.log('Changes: ', req.body)
+
         if (!changes.name || !changes.description) {
-            return res.status(400).json({ message: 'Please provide name, description, and completed' });
+             res.status(400).send({ message: 'Please provide name, description' }); 
+             return
         }
 
         const updatedProject = await update(id, changes);
@@ -68,9 +71,10 @@ router.put('/:id', async (req, res) => {
             return res.status(404).json({ message: 'Project not found' });
         }
 
-        res.status(200).json(updatedProject);
+        res.status(200).send(updatedProject);
+
     } catch (err) {
-        res.status(500).json({ message: 'Failed to update project' });
+        res.status(500).send({ message: 'Failed to update project' });
     }
 });
 
